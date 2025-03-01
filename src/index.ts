@@ -33,11 +33,6 @@ const registerRoutes = (callback: (app: Application) => void) => {
   callback(app)
 }
 
-// Start the server automatically
-app.listen(PORT, () => {
-  logger.info(`Server is running on port ${PORT}`)
-})
-
 export {
   app,
   registerRoutes,

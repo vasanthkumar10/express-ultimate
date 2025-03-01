@@ -33,19 +33,13 @@ npm install
 ### Basic Example
 
 ```typescript
-import {
-  registerRoutes,
-  redisClient,
-  logger,
-  encryptData,
-  decryptData
-} from 'express-ultimate'
+import { app, registerRoutes, redisClient, logger } from 'express-ultimate'
 
 // Register custom routes
 registerRoutes(app => {
   app.get('/custom', async (req, res) => {
-    await redisClient.set('message', encryptData('Hello from Redis!'))
-    const message = decryptData((await redisClient.get('message')) || '')
+    await redisClient.set('message', 'Hello from Redis!')
+    const message = await redisClient.get('message')
     res.json({ message })
   })
 
@@ -55,7 +49,11 @@ registerRoutes(app => {
   })
 })
 
-console.log('Custom routes registered successfully!')
+// Start the server
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+  logger.info(`Server is running on port ${PORT}`)
+})
 ```
 
 ## Environment Variables

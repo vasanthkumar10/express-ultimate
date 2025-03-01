@@ -102,19 +102,13 @@
 cd express-ultimate
 npm install</code></pre></div><h2>Usage</h2>
 <h3>Basic Example</h3>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import {
-  registerRoutes,
-  redisClient,
-  logger,
-  encryptData,
-  decryptData
-} from &#39;express-ultimate&#39;
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { app, registerRoutes, redisClient, logger } from &#39;express-ultimate&#39;
 
 // Register custom routes
 registerRoutes(app =&gt; {
   app.get(&#39;/custom&#39;, async (req, res) =&gt; {
-    await redisClient.set(&#39;message&#39;, encryptData(&#39;Hello from Redis!&#39;))
-    const message = decryptData((await redisClient.get(&#39;message&#39;)) || &#39;&#39;)
+    await redisClient.set(&#39;message&#39;, &#39;Hello from Redis!&#39;)
+    const message = await redisClient.get(&#39;message&#39;)
     res.json({ message })
   })
 
@@ -124,7 +118,11 @@ registerRoutes(app =&gt; {
   })
 })
 
-console.log(&#39;Custom routes registered successfully!&#39;)</code></pre></div><h2>Environment Variables</h2>
+// Start the server
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () =&gt; {
+  logger.info(`Server is running on port ${PORT}`)
+})</code></pre></div><h2>Environment Variables</h2>
 <p>Create a <code>.env</code> file in your root directory:</p>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-env">PORT=5000
 DB_URI=mongodb://localhost:27017/mydb

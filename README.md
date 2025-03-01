@@ -1,6 +1,6 @@
 # Express Ultimate Boilerplate
 
-A robust and scalable Express.js boilerplate with built-in authentication, database support (MongoDB & PostgreSQL), Redis integration, logging, encryption, and Swagger documentation.
+A powerful, scalable Express.js boilerplate with built-in authentication, database support (MongoDB & PostgreSQL), Redis integration, logging, encryption, and Swagger documentation.
 
 ## Features
 
@@ -33,35 +33,29 @@ npm install
 ### Basic Example
 
 ```typescript
-import express from 'express'
 import {
-  connectDB,
+  registerRoutes,
   redisClient,
   logger,
   encryptData,
   decryptData
 } from 'express-ultimate'
 
-dotenv.config()
-const app = express()
-const PORT = process.env.PORT || 5000
+// Register custom routes
+registerRoutes(app => {
+  app.get('/custom', async (req, res) => {
+    await redisClient.set('message', encryptData('Hello from Redis!'))
+    const message = decryptData((await redisClient.get('message')) || '')
+    res.json({ message })
+  })
 
-app.use(express.json())
-
-// Connect Database
-const DB_URI = process.env.DB_URI || ''
-connectDB(DB_URI, process.env.USE_POSTGRES === 'true')
-
-// Example Route
-app.get('/', async (req, res) => {
-  await redisClient.set('message', encryptData('Hello from Redis!'))
-  const message = decryptData((await redisClient.get('message')) || '')
-  res.json({ message })
+  app.post('/data', (req, res) => {
+    logger.info('Received data:', req.body)
+    res.json({ success: true, data: req.body })
+  })
 })
 
-app.listen(PORT, () => {
-  logger.info(`Server running on port ${PORT}`)
-})
+console.log('Custom routes registered successfully!')
 ```
 
 ## Environment Variables

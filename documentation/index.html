@@ -82,7 +82,85 @@
                <div class="content getting-started">
                    <div class="content-data">
 
-<h1>express-ultimate</h1>
+<h1>Express Ultimate Boilerplate</h1>
+<p>A powerful, scalable Express.js boilerplate with built-in authentication, database support (MongoDB &amp; PostgreSQL), Redis integration, logging, encryption, and Swagger documentation.</p>
+<h2>Features</h2>
+<ul>
+<li>🚀 <strong>Express.js</strong>: Lightweight and fast web framework</li>
+<li>🔐 <strong>Authentication</strong>: JWT-based authentication</li>
+<li>🗄️ <strong>Database Support</strong>: MongoDB &amp; PostgreSQL</li>
+<li>🛡️ <strong>Security</strong>: Helmet, CORS, Rate Limiting</li>
+<li>📝 <strong>Swagger API Documentation</strong>: Auto-generated API docs</li>
+<li>🛠 <strong>Redis Integration</strong>: For caching and session management</li>
+<li>📊 <strong>Logging</strong>: Winston for structured logs</li>
+<li>🔒 <strong>Encryption</strong>: AES encryption for sensitive data</li>
+<li>🏗 <strong>TypeScript Support</strong>: Fully typed API</li>
+</ul>
+<h2>Installation</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-sh">npm install express-ultimate</code></pre></div><p>or for local development:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-sh">git clone https://github.com/your-repo/express-ultimate.git
+cd express-ultimate
+npm install</code></pre></div><h2>Usage</h2>
+<h3>Basic Example</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import {
+  registerRoutes,
+  redisClient,
+  logger,
+  encryptData,
+  decryptData
+} from &#39;express-ultimate&#39;
+
+// Register custom routes
+registerRoutes(app =&gt; {
+  app.get(&#39;/custom&#39;, async (req, res) =&gt; {
+    await redisClient.set(&#39;message&#39;, encryptData(&#39;Hello from Redis!&#39;))
+    const message = decryptData((await redisClient.get(&#39;message&#39;)) || &#39;&#39;)
+    res.json({ message })
+  })
+
+  app.post(&#39;/data&#39;, (req, res) =&gt; {
+    logger.info(&#39;Received data:&#39;, req.body)
+    res.json({ success: true, data: req.body })
+  })
+})
+
+console.log(&#39;Custom routes registered successfully!&#39;)</code></pre></div><h2>Environment Variables</h2>
+<p>Create a <code>.env</code> file in your root directory:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-env">PORT=5000
+DB_URI=mongodb://localhost:27017/mydb
+USE_POSTGRES=false
+REDIS_URL=redis://localhost:6379
+ENCRYPTION_KEY=mysecretkey</code></pre></div><h2>API Documentation</h2>
+<p>Swagger documentation is automatically generated. Run the server and access:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">http://localhost:5000/api-docs</code></pre></div><h2>Redis Usage</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { redisClient } from &#39;express-ultimate&#39;
+await redisClient.set(&#39;key&#39;, &#39;value&#39;)
+const value = await redisClient.get(&#39;key&#39;)
+console.log(value)</code></pre></div><h2>Database Connection</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { connectDB } from &#39;express-ultimate&#39;
+connectDB(process.env.DB_URI, process.env.USE_POSTGRES === &#39;true&#39;)</code></pre></div><h2>Logging</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { logger } from &#39;express-ultimate&#39;
+logger.info(&#39;This is an info log&#39;)
+logger.error(&#39;This is an error log&#39;)</code></pre></div><h2>Encryption</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { encryptData, decryptData } from &#39;express-ultimate&#39;
+const encrypted = encryptData(&#39;Hello World&#39;)
+console.log(decryptData(encrypted))</code></pre></div><h2>Contributing</h2>
+<ol>
+<li>Fork the repository</li>
+<li>Create a new branch (<code>git checkout -b feature-branch</code>)</li>
+<li>Commit changes (<code>git commit -m &#39;Add new feature&#39;</code>)</li>
+<li>Push to branch (<code>git push origin feature-branch</code>)</li>
+<li>Open a Pull Request</li>
+</ol>
+<h2>🎯 License</h2>
+<p>This project is licensed under the <strong>MIT License</strong>.</p>
+<hr>
+<h2>📬 Contact</h2>
+<ul>
+<li><strong>Author:</strong> Vasanthkumar</li>
+<li><strong>GitHub:</strong> <a href="https://github.com/vasanthkumar10">@vasanthkumar10</a></li>
+<li><strong>Email:</strong> <a href="mailto:vasizebron10@gmail.com">vasizebron10@gmail.com</a></li>
+</ul>
 
 
 

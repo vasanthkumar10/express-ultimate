@@ -1,0 +1,91 @@
+{
+  "name": "express-ultimate",
+  "version": "1.0.0",
+  "description": "Express boilerplate with built-in authentication, database support, and Swagger documentation.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:clean": "rm -rf ./dist",
+    "compile": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "generate:docs": "npx compodoc -p tsconfig.json",
+    "test": "jest",
+    "lint": "eslint . || echo 'Run \"npm run lint:fix\" to automatically fix issues.'",
+    "lint:fix": "eslint --fix .",
+    "prepare": "husky",
+    "postversion": "git push && git push --tags && npm run publish:pkg",
+    "publish:pkg": "npm publish",
+    "version:update:patch": "npm version patch --no-git-tag-version",
+    "version:update:minor": "npm version minor --no-git-tag-version",
+    "version:update:major": "npm version major --no-git-tag-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vasanthkumar10/express-ultimate"
+  },
+  "homepage": "https://github.com/vasanthkumar10/express-ultimate#readme",
+  "bugs": {
+    "url": "https://github.com/vasanthkumar10/express-ultimate/issues"
+  },
+  "keywords": [
+    "express",
+    "boilerplate",
+    "typescript",
+    "encryption",
+    "database",
+    "route",
+    "logger"
+  ],
+  "author": "Vasanthkumar",
+  "contributors": [
+    {
+      "name": "Vasanthkumar",
+      "email": "vasizebron10@gmail.com",
+      "url": "https://github.com/vasanthkumar10"
+    }
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "@compodoc/compodoc": "^1.1.26",
+    "@types/cors": "^2.8.17",
+    "@types/crypto-js": "^4.2.2",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.8",
+    "@types/pg": "^8.11.11",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsonc": "^2.19.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.11.0",
+    "pg": "^8.13.3",
+    "redis": "^4.7.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0"
+  },
+  "imports": {
+    "#*": "./*"
+  },
+  "engines": {
+    "node": ">=18.16.0"
+  }
+}
